@@ -1,0 +1,33 @@
+type Student {
+	sid : ID!
+	name : String
+	dept : String
+	favSport : String
+	classTeacher : String
+}
+
+type ApiResponse {
+	message : String
+	success : Boolean
+}
+
+type Mutation {
+
+addStudent(studentInput:StudentInput) : Student
+updateStudent(studentInput:StudentInput, sid:ID!) : Student
+deleteStudent(sid:ID!) : ApiResponse
+}
+
+type Query {
+
+getAllStudents : [Student]
+getStudent(sid:Int) : Student!
+
+}
+
+input StudentInput {
+	name : String
+	dept : String
+	favSport : String
+	classTeacher : String
+}
