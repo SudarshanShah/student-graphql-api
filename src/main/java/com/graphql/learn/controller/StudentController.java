@@ -1,27 +1,27 @@
 package com.graphql.learn.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.graphql.learn.model.Student;
+import com.graphql.learn.services.StudentService;
+import com.graphql.learn.utils.ApiResponse;
+import com.graphql.learn.utils.StudentInput;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
-import com.graphql.learn.model.Student;
-import com.graphql.learn.services.StudentService;
-import com.graphql.learn.utils.ApiResponse;
-import com.graphql.learn.utils.StudentInput;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
 
 @Controller
 @Slf4j
 public class StudentController {
 
-	@Autowired
-	private StudentService studentService;
-	
+	private final StudentService studentService;
+
+	public StudentController(StudentService studentService) {
+		this.studentService = studentService;
+	}
+
 	@MutationMapping("addStudent")
 	public Student addStudent(@Argument StudentInput studentInput) {
 		Student student = new Student();

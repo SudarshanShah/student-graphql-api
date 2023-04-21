@@ -1,20 +1,21 @@
 package com.graphql.learn.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.graphql.learn.exception.StudentNotFoundException;
 import com.graphql.learn.model.Student;
 import com.graphql.learn.repo.StudentRepo;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StudentService {
 
-	@Autowired
-	private StudentRepo studentRepo;
-	
+	private final StudentRepo studentRepo;
+
+	public StudentService(StudentRepo studentRepo) {
+		this.studentRepo = studentRepo;
+	}
+
 	public Student addStudent(Student student) {
 		return this.studentRepo.save(student);
 	}
@@ -45,7 +46,7 @@ public class StudentService {
 	public Student getStudentById(int sid) {
 		Student s = this.studentRepo.findById(sid)
 				.orElseThrow(() -> new StudentNotFoundException("Student not found with id : " + sid));
-		
+
 		return s;
 	}
 }
